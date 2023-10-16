@@ -1,0 +1,3 @@
+[submodule "contracts/lib/sismo-connect-packages"]
+	path = contracts/lib/sismo-connect-packages
+	url = https://github.com/sismo-core/sismo-connect-packages
