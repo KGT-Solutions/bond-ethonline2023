@@ -2,7 +2,8 @@
 pragma solidity ^0.8.17;
 
 // import SismoConnect Solidity library
-import "sismo-connect-solidity/SismoLib.sol";
+import "sismo-connect-packages/SismoLib.sol";
+import {SismoConnectConfig} from "sismo-connect-onchain-verifier/src/libs/utils/RequestBuilder.sol";
 
 /**
  * @title Bond
@@ -36,8 +37,7 @@ contract SismoModule is SismoConnect {
     bytes16 public groupId;
     GnosisSafe public safe;
 
-    //TODO make proxyable w/ initializer
-    constructor(address _safe, bytes16 _appId, bytes16 _groupId) SismoConnect(_appId) {
+    constructor(address _safe, SismoConnectConfig memory _config, bytes16 _groupId) SismoConnect(_config) {
         safe = GnosisSafe(_safe);
         groupId = _groupId;
     }
