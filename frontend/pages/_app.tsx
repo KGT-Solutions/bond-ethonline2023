@@ -28,8 +28,8 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',
+  appName: 'Bond App',
+  projectId: 'aabe5799ebee1be26c838f7e2e695a9e',
   chains,
 });
 
