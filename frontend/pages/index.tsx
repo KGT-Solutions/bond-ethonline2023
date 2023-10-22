@@ -27,7 +27,8 @@ const Home: NextPage = () => {
         <ConnectButton />
 
         <h1 className={styles.title}>
-          Welcome to <a href="">Bond</a>
+          Welcome to <a href="">Bond</a><br/><br/>
+          <img src="/logo.jpg" alt="logo" style={{width: "100px"}} />
         </h1>
 
         <p className={styles.description}>
