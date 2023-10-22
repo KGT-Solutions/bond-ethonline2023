@@ -60,10 +60,10 @@ contract SismoModule is SismoConnect {
         uint256 value,
         bytes calldata data,
         Enum.Operation operation,
-        bytes memory zkConnectResponse
+        bytes memory sismoConnectResponse
     ) public virtual returns (bool success) {
         SismoConnectVerifiedResult memory result = verify({
-            responseBytes: zkConnectResponse,
+            responseBytes: sismoConnectResponse,
             auth: buildAuth({authType: AuthType.VAULT}),
             claim: buildClaim({groupId: groupId}),
             signature: buildSignature({message: abi.encode(to, value, data, operation)})
@@ -71,6 +71,21 @@ contract SismoModule is SismoConnect {
 
         require(safe.execTransactionFromModule(to, value, data, operation), "Module transaction failed");
 
+        return true;
+    }
+
+        function addOwner(address newOwner, uint256 threshold, bytes memory sismoConnectResponse) public virtual returns (bool success) {
+        // Verify zkConnect proof
+        SismoConnectVerifiedResult memory sismoConnectVerifiedResult = verify({
+            responseBytes: sismoConnectResponse,
+            auth: buildAuth({ authType: AuthType.VAULT }),
+            claim: buildClaim({ groupId: groupId }),
+            signature: buildSignature({message: abi.encode(newOwner, threshold)})
+        });
+        
+        // Call addOwnerWithThreshold function from OwnerManager contract
+        safe.addOwnerWithThreshold(newOwner, threshold);
+        
         return true;
     }
 
